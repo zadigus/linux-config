@@ -3,6 +3,8 @@
 TMP_DIR=$(mktemp -d)
 echo "tmp dir: ${TMP_DIR}"
 
+echo 'export PATH=${PATH}:${HOME}/.local/bin' >> ~/.zshrc
+
 # download + install nerd font
 wget -O "${TMP_DIR}/font.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Meslo.zip"
 unzip "${TMP_DIR}/font.zip" -d "${TMP_DIR}"
@@ -21,6 +23,33 @@ echo "source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 echo "source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
+
+# install eza
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+sudo apt update
+sudo apt install -y eza
+echo "alias ls=\"eza --icons=always\"" >> ~/.zshrc
+
+# install zoxide / fzf
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+echo 'eval "$(zoxide init bash)"' >> ~/.zshrc
+sudo apt install fzf
+echo 'alias cd="z"' >> ~/.zshrc
+
+# TODO: install yazi
+#  https://github.com/sxyazi/yazi/releases
+
+# lazygit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+curl -Lo "${TMP_DIR}/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf "${TMP_DIR}/lazygit.tar.gz" lazygit
+sudo install lazygit -D -t /usr/local/bin/
+
+# neovim
+sudo apt install neovim
 
 # clean up tmp dir
 rm -rf "${TMP_DIR}"
