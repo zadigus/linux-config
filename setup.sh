@@ -49,7 +49,13 @@ tar xf "${TMP_DIR}/lazygit.tar.gz" lazygit
 sudo install lazygit -D -t /usr/local/bin/
 
 # neovim
-sudo apt install neovim
+echo 'export PATH=${PATH}:/opt/nvim-linux-x86_64/bin' >> ~/.zshrc
+(
+cd "${TMP_DIR}"
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+)
 
 # clean up tmp dir
 rm -rf "${TMP_DIR}"
