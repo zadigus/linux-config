@@ -56,6 +56,11 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x8
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 )
+# neovim config
+git clone git@github.com:zadigus/neovim-wsl.git ~/.config/nvim
+# neovim plugin dependencies
+sudo apt install nodejs python3 python3-pip python3-venv python-is-python3
+pip install ruff black flake8 --break-system-packages
 
 # clean up tmp dir
 rm -rf "${TMP_DIR}"
