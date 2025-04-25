@@ -59,8 +59,11 @@ sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 # neovim config
 git clone git@github.com:zadigus/neovim-wsl.git ~/.config/nvim
 # neovim plugin dependencies
-sudo apt install nodejs python3 python3-pip python3-venv python-is-python3
+sudo apt install python3 python3-pip python3-venv python-is-python3
 pip install ruff black flake8 --break-system-packages
+NODE_VERSION="v22.15.0" ; wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" -O "${TMP_DIR}/node.tar.xz"
+echo 'export PATH=${PATH}:/opt/node-${NODE_VERSION}-linux-x64/bin' >> ~/.zshrc
+sudo tar -C /opt -xf "${TMP_DIR}/node.tar.xz"
 
 # clean up tmp dir
 rm -rf "${TMP_DIR}"
