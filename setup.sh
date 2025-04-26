@@ -48,6 +48,11 @@ curl -Lo "${TMP_DIR}/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/r
 tar xf "${TMP_DIR}/lazygit.tar.gz" lazygit
 sudo install lazygit -D -t /usr/local/bin/
 
+# ocaml
+bash -c "sh <(curl -fsSL https://opam.ocaml.org/install.sh)"
+opam init
+opam install ocaml-lsp-server odoc ocamlformat utop
+
 # neovim
 echo 'export PATH=${PATH}:/opt/nvim-linux-x86_64/bin' >> ~/.zshrc
 (
