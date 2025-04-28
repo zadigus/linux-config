@@ -51,7 +51,8 @@ sudo install lazygit -D -t /usr/local/bin/
 # ocaml
 bash -c "sh <(curl -fsSL https://opam.ocaml.org/install.sh)"
 opam init
-opam install ocaml-lsp-server odoc ocamlformat utop
+opam install ocaml-lsp-server odoc ocamlformat utop merlin
+opam user-setup install
 
 # neovim
 echo 'export PATH=${PATH}:/opt/nvim-linux-x86_64/bin' >> ~/.zshrc
