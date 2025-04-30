@@ -5,6 +5,9 @@ echo "tmp dir: ${TMP_DIR}"
 
 echo 'export PATH=${PATH}:${HOME}/.local/bin' >> ~/.zshrc
 
+# install pass
+sudo apt update && sudo apt install pass
+
 # download + install nerd font
 wget -O "${TMP_DIR}/font.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Meslo.zip"
 unzip "${TMP_DIR}/font.zip" -d "${TMP_DIR}"
@@ -67,8 +70,8 @@ git clone git@github.com:zadigus/neovim-wsl.git ~/.config/nvim
 # neovim plugin dependencies
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository -y "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt install python3 python3-pip python3-venv python-is-python3 terraform
-pip install ruff black flake8 --break-system-packages
+sudo apt install python3 python3-pip python3-venv python-is-python3 terraform default-jre default-jdk
+pip install ruff black flake8 virtualenv --break-system-packages
 NODE_VERSION="v22.15.0" ; wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" -O "${TMP_DIR}/node.tar.xz"
 echo 'export PATH=${PATH}:/opt/node-${NODE_VERSION}-linux-x64/bin' >> ~/.zshrc
 sudo tar -C /opt -xf "${TMP_DIR}/node.tar.xz"
